@@ -109,8 +109,8 @@ namespace SpriteSheet_Generator
             string fileExtension = match.Groups[3].Value;
 
             string spritePath = imagesPaths[0].Remove(imagesPaths[0].Length - (fileNumber.Length + fileExtension.Length));
-            spritePath = Path.Combine(spritePath, spriteName);
-            bitmap.Save(spritePath, ImageFormat.Png);
+            spritePath = Path.Combine(spritePath, spriteName) + fileExtension;
+            bitmap.Save(spritePath);
 
             SuccessMessage($"DONE! Final sprite is in: {spritePath}");
         }
