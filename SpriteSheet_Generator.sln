@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.808.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteSheet_Generator", "SpriteSheet_Generator\SpriteSheet_Generator.csproj", "{9863B554-7046-49C2-8834-44BD0387C470}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ConsoleUtilities", "..\ConsoleUtilities\ConsoleUtilities\ConsoleUtilities.shproj", "{A6D263B6-3FD0-4C4A-95B9-E4FEEA2007C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9863B554-7046-49C2-8834-44BD0387C470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9863B554-7046-49C2-8834-44BD0387C470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9863B554-7046-49C2-8834-44BD0387C470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9863B554-7046-49C2-8834-44BD0387C470}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {520CFB72-D457-446D-B841-4320A9DE8216}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.StandardHeader = $1
+		version = 2.0
+	EndGlobalSection
+EndGlobal
