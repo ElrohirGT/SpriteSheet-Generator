@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Drawing.Imaging;
 using System.Drawing;
 using System.Linq;
-using static ConsoleUtilities.ConsoleUtilities;
+using static ConsoleUtilitiesLite.ConsoleUtilitiesLite;
 using System.Text.RegularExpressions;
 
 namespace SpriteSheet_Generator
@@ -11,15 +10,15 @@ namespace SpriteSheet_Generator
     class Program
     {
         static string MainPath;
-        static string[] Title = new string[]
+        static readonly string[] Title = new string[]
         {
             "█▀ █▀█ █▀█ █ ▀█▀ █▀▀   █▀ █░█ █▀▀ █▀▀ ▀█▀   █▀▀ █▀▀ █▄░█ █▀▀ █▀█ ▄▀█ ▀█▀ █▀█ █▀█",
             "▄█ █▀▀ █▀▄ █ ░█░ ██▄   ▄█ █▀█ ██▄ ██▄ ░█░   █▄█ ██▄ █░▀█ ██▄ █▀▄ █▀█ ░█░ █▄█ █▀▄"
         };
-        static string[] AllowedExtensions = new string[] { "jpg", "png" };
-        static Regex RegexFormat = new Regex(@"(\D*)(\d+)(\.png|\.jpg)$");
+        static readonly string[] AllowedExtensions = new string[] { "jpg", "png" };
+        static readonly Regex RegexFormat = new Regex(@"(\D*)(\d+)(\.png|\.jpg)$");
 
-        static void Main(string[] args)
+        static void Main()
         {
             Console.Clear();
             ShowTitle(Title);
@@ -30,22 +29,21 @@ namespace SpriteSheet_Generator
 
                 if (MainPath.ToLower().Equals("q"))
                     break;
-
-                if (Directory.Exists(MainPath))
+                if (!Directory.Exists(MainPath))
                 {
-                    try
-                    {
-                        MergeImages();
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorMessage(ex.Message);
-                    }
-                    Division();
+                    ErrorMessage("ERROR! Input a valid path.");
                     continue;
                 }
 
-                ErrorMessage("ERROR! Input a valid path.");
+                try
+                {
+                    MergeImages();
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessage(ex.Message);
+                }
+                Division();
             }
         }
 
@@ -79,6 +77,7 @@ namespace SpriteSheet_Generator
             int currentColumnCount = 0;
             int previousLoggedStringLength = 0;
             string message;
+
             for (int i = 0; i < imagesPaths.Length; i++)
             {
                 ClearPreviousLog(previousLoggedStringLength);
@@ -101,7 +100,7 @@ namespace SpriteSheet_Generator
             }
 
             if (!RegexFormat.IsMatch(imagesPaths[0]))
-                throw new FormatException("The images were not in the correct naming format, the correct format is name_XXX*.jpg or .png. Name must not have numbers in it.");
+                throw new FormatException("The images were not in the correct naming format, the correct format is nameXXX*.jpg or .png. Name must not have numbers in it.");
 
             var match = RegexFormat.Match(imagesPaths[0]);
             string spriteName = match.Groups[1].Value;
