@@ -22,6 +22,7 @@ namespace SpriteSheet_Generator
         {
             Console.Clear();
             ShowTitle(Title);
+            ShowVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             while (true)
             {
                 Console.Write("Please input the path to the folder with all the images: ");
@@ -31,7 +32,8 @@ namespace SpriteSheet_Generator
                     break;
                 if (!Directory.Exists(MainPath))
                 {
-                    ErrorMessage("ERROR! Input a valid path.");
+                    LogErrorMessage("ERROR! Input a valid path.");
+                    Console.WriteLine();
                     continue;
                 }
 
@@ -39,10 +41,7 @@ namespace SpriteSheet_Generator
                 {
                     MergeImages();
                 }
-                catch (Exception ex)
-                {
-                    ErrorMessage(ex.Message);
-                }
+                catch (Exception ex) { LogErrorMessage(ex.Message); Console.WriteLine(); }
                 Division();
             }
         }
@@ -76,7 +75,6 @@ namespace SpriteSheet_Generator
             using Graphics g = Graphics.FromImage(bitmap);
             int currentColumnCount = 0;
             int previousLoggedStringLength = 0;
-            string message;
 
             for (int i = 0; i < imagesPaths.Length; i++)
             {
@@ -85,9 +83,7 @@ namespace SpriteSheet_Generator
                 g.DrawImage(image, location);
                 currentColumnCount++;
 
-                message = $"Merging: {imagesPaths[0]}";
-                Log(message);
-                previousLoggedStringLength = message.Length;
+                previousLoggedStringLength = LogInfoMessage("Merging: {0}", imagesPaths[i]);
 
                 if (currentColumnCount == numberOfColumns)
                 {
@@ -98,7 +94,7 @@ namespace SpriteSheet_Generator
                 else
                     location.X += maxSize.maxWidth;
             }
-
+            Console.WriteLine();
             if (!RegexFormat.IsMatch(imagesPaths[0]))
                 throw new FormatException("The images were not in the correct naming format, the correct format is nameXXX*.jpg or .png. Name must not have numbers in it.");
 
@@ -111,7 +107,8 @@ namespace SpriteSheet_Generator
             spritePath = Path.Combine(spritePath, spriteName) + fileExtension;
             bitmap.Save(spritePath);
 
-            SuccessMessage($"DONE! Final sprite is in: {spritePath}");
+            LogSuccessMessage("DONE! Final sprite is in: {0}", spritePath);
+            Console.WriteLine();
         }
 
         private static int GetNumberOfColumns(int numberOfElements)
